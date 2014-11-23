@@ -1,0 +1,22 @@
+body, html{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #333;
+}
+
+.stage {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.stage-container {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+canvas {
+  background: black;
+}

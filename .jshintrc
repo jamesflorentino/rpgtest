@@ -1,0 +1,17 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "indent": 2,
+  "undef": true,
+  "node": true,
+  "browser": true,
+  "predef": {
+    "describe": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "it": true,
+    "createjs": true
+  }
+}

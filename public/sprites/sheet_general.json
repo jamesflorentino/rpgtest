@@ -1,0 +1,53 @@
+{
+"images": ["/sprites/sheet_general.png"],
+"frames": [
+
+    [195, 104, 19, 22], 
+    [296, 84, 13, 22], 
+    [276, 84, 18, 22], 
+    [256, 104, 18, 22], 
+    [152, 104, 20, 22], 
+    [236, 104, 18, 22], 
+    [216, 104, 18, 22], 
+    [300, 26, 18, 22], 
+    [174, 104, 19, 22], 
+    [300, 2, 18, 22], 
+    [86, 66, 64, 60], 
+    [272, 2, 26, 46], 
+    [272, 50, 32, 32], 
+    [152, 2, 64, 62], 
+    [206, 70, 52, 32], 
+    [218, 36, 52, 32], 
+    [218, 2, 52, 32], 
+    [86, 2, 64, 62], 
+    [152, 66, 52, 32], 
+    [2, 2, 82, 110]
+],
+"animations": {
+    
+        "damage-0":[0], 
+        "damage-1":[1], 
+        "damage-2":[2], 
+        "damage-3":[3], 
+        "damage-4":[4], 
+        "damage-5":[5], 
+        "damage-6":[6], 
+        "damage-7":[7], 
+        "damage-8":[8], 
+        "damage-9":[9], 
+        "default_tile":[10], 
+        "pointer_move":[11], 
+        "red-potion_0":[12], 
+        "tile_attack":[13], 
+        "tile_click":[14], 
+        "tile_debug":[15], 
+        "tile_error":[16], 
+        "tile_indicator":[17], 
+        "tile_move":[18], 
+        "tree":[19]
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:f89d866e13d301ac2125626607bb9336:1/1$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+]
+}
