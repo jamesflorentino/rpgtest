@@ -5,14 +5,17 @@ function Grid() {
   this.rows = 0;
 }
 
-Grid.prototype.load = function(matrix, eachfn) {
+Grid.prototype.load = function(map, eachfn) {
   this._matrix = [];
+  var matrix = map.layout;
+  var walls = map.walls;
   this.rows = matrix.length;
   for(var y=0; y<matrix.length; y++) {
     this._matrix.push([]);
     this.columns = this.columns > matrix[y].length ? this.columns : matrix[y].length;
     for(var x=0; x<matrix[y].length; x++) {
-      var tile = new Tile(x, y, matrix[y][x]);
+      var id = matrix[y][x];
+      var tile = new Tile(x, y, walls.indexOf(id) > -1);
       this._matrix[y].push(tile);
       if (eachfn) {
         eachfn(tile);
@@ -21,9 +24,11 @@ Grid.prototype.load = function(matrix, eachfn) {
   }
 };
 
-Grid.prototype.findPath = function(start, end) {
+Grid.prototype.findPath = function(start, end,  options) {
   var open = [start];
   var closed = [];
+  var heuristics = manhattan;
+  var diagonal = options ? options.diagonal : false;
 
   while(open.length) {
 
@@ -54,13 +59,13 @@ Grid.prototype.findPath = function(start, end) {
     closed.push(current);
 
     // find neighbors
-    var neighbors = this.findNeighbors(current);
+    var neighbors = this.findNeighbors(current, diagonal);
 
     for(i=0; i<neighbors.length; i++) {
       var neighbor = neighbors[i];
 
       // if the neighbor is already inside the closed list, move on...
-      if (closed.indexOf(neighbor) > -1) { continue; }
+      if (closed.indexOf(neighbor) > -1 || neighbor.wall) { continue; }
 
       // since moving from one adjacent tile is just 1, we add that to the G score,
       // we will find the best tile to move to by the flag `gScoreBest`
@@ -70,7 +75,7 @@ Grid.prototype.findPath = function(start, end) {
       // if the neighbor isn't in the open list yet, let's add it
       if (open.indexOf(neighbor) === -1) {
         gScoreBest = true;
-        neighbor.h = euclidean(neighbor, end);
+        neighbor.h = heuristics(neighbor, end);
         open.push(neighbor);
       } else if (gScore < neighbor.g) {
         gScoreBest = true;
@@ -86,7 +91,7 @@ Grid.prototype.findPath = function(start, end) {
   return [];
 };
 
-Grid.prototype.findNeighbors = function(tile) {
+Grid.prototype.findNeighbors = function(tile, diagonal) {
   var nodes = [];
   var neighbor;
 
@@ -94,26 +99,9 @@ Grid.prototype.findNeighbors = function(tile) {
   neighbor = this.get(tile.x, tile.y-1);
   if (neighbor) { nodes.push(neighbor); }
 
-  // north-east
-  // neighbor = this.get(tile.x+1, tile.y-1);
-  // if (neighbor) { nodes.push(neighbor); }
-
-  // north-west
-  // neighbor = this.get(tile.x-1, tile.y-1);
-  // if (neighbor) { nodes.push(neighbor); }
-
   // south
   neighbor = this.get(tile.x, tile.y+1);
   if (neighbor) { nodes.push(neighbor); }
-
-  // south-east
-  // neighbor = this.get(tile.x+1, tile.y+1);
-  // if (neighbor) { nodes.push(neighbor); }
-
-  // south-west
-  // neighbor = this.get(tile.x-1, tile.y+1);
-  // if (neighbor) { nodes.push(neighbor); }
-
   // east
   neighbor = this.get(tile.x+1, tile.y);
   if (neighbor) { nodes.push(neighbor); }
@@ -122,6 +110,24 @@ Grid.prototype.findNeighbors = function(tile) {
   neighbor = this.get(tile.x-1, tile.y);
   if (neighbor) { nodes.push(neighbor); }
 
+  if (diagonal) {
+    // north-east
+    neighbor = this.get(tile.x+1, tile.y-1);
+    if (neighbor) { nodes.push(neighbor); }
+
+    // north-west
+    neighbor = this.get(tile.x-1, tile.y-1);
+    if (neighbor) { nodes.push(neighbor); }
+
+    // south-east
+    neighbor = this.get(tile.x+1, tile.y+1);
+    if (neighbor) { nodes.push(neighbor); }
+
+    // south-west
+    neighbor = this.get(tile.x-1, tile.y+1);
+    if (neighbor) { nodes.push(neighbor); }
+
+  }
   return nodes;
 };
 
@@ -129,6 +135,21 @@ Grid.prototype.getByPosition = function(x, y) {
   var cellX = Math.floor(x / Tile.prototype.WIDTH);
   var cellY = Math.floor(y/ Tile.prototype.HEIGHT);
   return this.get(cellX, cellY);
+};
+
+Grid.prototype.getNearestNeighbor = function(start, end) {
+  var neighbors = this.findNeighbors(end);
+  var lowestScore = 10000;
+  var nearest;
+  for(var i=0; i<neighbors.length; i++) {
+    var neighbor = neighbors[i];
+    var h = euclidean(start, neighbor);
+    if (lowestScore > h) {
+      lowestScore = h;
+      nearest = neighbor;
+    }
+  }
+  return nearest;
 };
 
 

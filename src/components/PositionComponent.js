@@ -1,10 +1,11 @@
+var Point = require('../core/Point');
+
 function PositionComponent(x, y) {
-  this.x = x;
-  this.y = y;
-  this.directionX = 1;
-  this.directionY = 1;
+  Point.apply(this, arguments);
 }
 
+PositionComponent.prototype = Object.create(Point.prototype);
+PositionComponent.prototype.constructor = PositionComponent;
 PositionComponent.prototype.name = 'position';
 
 module.exports = PositionComponent;

@@ -2,7 +2,9 @@ body, html{
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #333;
+  background: #111 linear-gradient(#0D0C1C, #34608D);
+  background: #111 linear-gradient(#0D0C1C, #271920);
+  overflow: hidden;
 }
 
 .stage {
@@ -18,5 +20,7 @@ body, html{
 }
 
 canvas {
-  background: black;
+  background: #37392b;
+  border: 1px solid #34608D;
+ -webkit-overflow-scrolling: touch;
 }

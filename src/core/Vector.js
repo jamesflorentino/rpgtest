@@ -1,17 +1,14 @@
-var Vector = {
-  proximity: function(start, end, threshold) {
-    return Math.abs(end - start) < threshold;
-  },
+function Vector(x,y,z) {
+  this.x = x;
+  this.y = y;
+  this.z = z;
+}
 
-  truncate: function(start, max) {
-    var direction = start > 0 ? 1 : -1;
-    return Math.min(Math.abs(start), max) * direction;
-  },
-
-  normalize: function(end, start) {
-    var direction = end > start ? 1 : -1;
-    return Math.abs(end - start) * direction;
-  }
+Vector.prototype.length = function() {
+  return Math.sqrt(this.dot());
 };
 
-module.exports = Vector;
+Vector.prototype.dot = function() {
+  return this.x * this.x + this.y * this.y;
+};
+

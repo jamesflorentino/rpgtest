@@ -3,9 +3,14 @@ function Entity() {
   this.components = {};
 }
 
+Entity.prototype.setState = function(state) {
+  if (this.state === state) { return; }
+  this.state = state;
+  this.onSetState(state);
+};
+
 Entity.prototype.add = function(component) {
   this.components[component.name] = component;
-  this.added(component.name);
 };
 
 Entity.prototype.get = function(name) {
@@ -27,6 +32,10 @@ Entity.prototype.removed = function(name) {
 // Events
 Entity.prototype.onDestroy = function() {
 };
+
+Entity.prototype.onSetState = function(state) {
+};
+
 
 Entity.prototype._id = 0;
 

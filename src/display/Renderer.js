@@ -6,6 +6,7 @@ function Renderer(width, height) {
   container.appendChild(canvas);
   this._layers = {};
   this.stage = new createjs.Stage(canvas);
+  createjs.Touch.enable(this.stage);
 }
 
 Renderer.prototype.addLayer = function(name) {
@@ -23,14 +24,27 @@ Renderer.prototype.add = function(sprite, option) {
   container.addChild(sprite);
 };
 
-Renderer.prototype.cache = function(name, padding) {
-  var layer = this._layers[name];
-  padding = padding || 0;
-  layer.cache(-padding, -padding, this.canvas.width + padding, this.canvas.height + padding);
+Renderer.prototype.getLayer = function(name) {
+  return this._layers[name];
+};
+
+Renderer.prototype.clearLayers = function() {
+  for(var name in this._layers) {
+    var layer = this._layers[name];
+    if (layer instanceof createjs.Container) {
+      layer.removeAllChildren();
+    }
+  }
+};
+
+
+Renderer.prototype.pressed = function(name, fn) {
+  var layer = this.getLayer(name);
+  layer.addEventListener('mousedown', fn);
 };
 
 Renderer.prototype.clicked = function(name, fn) {
-  var layer = this._layers[name];
+  var layer = this.getLayer(name);
   layer.addEventListener('click', fn);
 };
 
@@ -44,7 +58,7 @@ Renderer.prototype.pan = function(target, x, y) {
     }
     return;
   }
-  layer = this._layers[name];
+  layer = this.getLayer(name);
   layer.x = x;
   layer.y = y;
 };
@@ -52,6 +66,10 @@ Renderer.prototype.pan = function(target, x, y) {
 
 Renderer.prototype.update = function() {
   this.stage.update();
+  this.onUpdate();
+};
+
+Renderer.prototype.onUpdate = function() {
 };
 
 module.exports = Renderer;

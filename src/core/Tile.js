@@ -1,7 +1,7 @@
-function Tile(x, y, type) {
+function Tile(x, y, wall) {
   this.x = x;
   this.y = y;
-  this.type = type || 0;
+  this.wall = !!wall;
   this.f = 0;
   this.g = 0;
   this.h = 0;
