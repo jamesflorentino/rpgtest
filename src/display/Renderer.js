@@ -37,7 +37,6 @@ Renderer.prototype.clearLayers = function() {
   }
 };
 
-
 Renderer.prototype.pressed = function(name, fn) {
   var layer = this.getLayer(name);
   layer.addEventListener('mousedown', fn);

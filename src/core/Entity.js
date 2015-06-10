@@ -10,16 +10,18 @@ Entity.prototype.setState = function(state) {
 };
 
 Entity.prototype.add = function(component) {
-  this.components[component.name] = component;
+  if ('function' === typeof this[component.name]) { throw component.name + 'is a reserved function'; }
+  this[component.name] = component;
 };
 
 Entity.prototype.get = function(name) {
-  return this.components[name];
+  if ('function' === typeof this[name]) { return; }
+  return this[name];
 };
 
 Entity.prototype.remove = function(name) {
-  delete this.components[name];
-  this.removed(name);
+  if ('function' === typeof this[name]) { throw name + 'is a reserved function'; }
+  delete this[name];
 };
 
 Entity.prototype.added = function(name) {

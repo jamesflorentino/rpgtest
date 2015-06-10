@@ -1,0 +1,63 @@
+{
+"images": ["/sprites/knight.png"],
+"frames": [
+
+    [1542, 129, 138, 125], 
+    [1682, 2, 138, 125], 
+    [1542, 2, 138, 125], 
+    [1402, 129, 138, 125], 
+    [1402, 2, 138, 125], 
+    [1262, 129, 138, 125], 
+    [1262, 2, 138, 125], 
+    [1122, 129, 138, 125], 
+    [1122, 2, 138, 125], 
+    [982, 129, 138, 125], 
+    [982, 2, 138, 125], 
+    [842, 129, 138, 125], 
+    [842, 2, 138, 125], 
+    [702, 129, 138, 125], 
+    [702, 2, 138, 125], 
+    [562, 129, 138, 125], 
+    [562, 2, 138, 125], 
+    [422, 129, 138, 125], 
+    [422, 2, 138, 125], 
+    [282, 129, 138, 125], 
+    [282, 2, 138, 125], 
+    [142, 129, 138, 125], 
+    [142, 2, 138, 125], 
+    [2, 129, 138, 125], 
+    [2, 2, 138, 125]
+],
+"animations": {
+    
+        "knight/idle_0000":[0], 
+        "knight/walk_0000":[1], 
+        "knight/walk_0001":[2], 
+        "knight/walk_0002":[3], 
+        "knight/walking_0000":[4], 
+        "knight/walking_0001":[5], 
+        "knight/walking_0002":[6], 
+        "knight/walking_0003":[7], 
+        "knight/walking_0004":[8], 
+        "knight/walking_0005":[9], 
+        "knight/walking_0006":[10], 
+        "knight/walking_0007":[11], 
+        "knight/walking_0008":[12], 
+        "knight/walking_0009":[13], 
+        "knight/walking_0010":[14], 
+        "knight/walking_0011":[15], 
+        "knight/walking_0012":[16], 
+        "knight/walking_0013":[17], 
+        "knight/walking_0014":[18], 
+        "knight/walking_0015":[19], 
+        "knight/walking_0016":[20], 
+        "knight/walking_0017":[21], 
+        "knight/walking_0018":[22], 
+        "knight/walking_0019":[23], 
+        "knight/walking_0020":[24]
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:b01e923621fd9891247ae8a76ad24988:1/1$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+]
+}

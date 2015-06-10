@@ -1,5 +1,4 @@
-function SpriteComponent(value, obj) {
-  this.value = value;
+function SpriteComponent(obj) {
   this.object = obj;
 }
 

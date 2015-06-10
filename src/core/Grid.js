@@ -152,6 +152,52 @@ Grid.prototype.getNearestNeighbor = function(start, end) {
   return nearest;
 };
 
+Grid.prototype.useIsometric = function(width, height) {
+  Tile.prototype.WIDTH = width || 64;
+  Tile.prototype.HEIGHT = height || 32;
+  Tile.prototype.posX = function() {
+    return (this.x - this.y) * this.WIDTH * 0.5;
+  };
+  Tile.prototype.posY = function() {
+    return (this.y + this.x) * this.HEIGHT * 0.5;
+  };
+  this.getByPosition = Grid.getIsometricTile.bind(this);
+};
+
+Grid.getIsometricTile = function(posX, posY) {
+  var halfWidth = Tile.prototype.WIDTH * 0.5;
+  var halfHeight = Tile.prototype.HEIGHT * 0.5;
+  // Isometric formula from cell to screen position
+  // ----------------------------------------------
+  // posX = (cellX - cellY) * (halfWidth);
+  // posY = (cellY + cellX) + (halfHeight);
+  //
+  // Isometric formula from screen to cell position
+  // ----------------------------------------------
+  // posX / (halfWidth) =  cellX - cellY;
+  // cellX = posX / (halfWidth) + cellY;
+  //
+  // posY / halfHeight = cellX + cellY;
+  // cellY = (posY / halfHeight) - cellX;
+  //
+  // cellX = posX / (halfWidth) + (posY / halfHeight) - cellY
+  // cellX * 2 = posX / (halfWidth) + (posY / halfHeight);
+  //
+  // cellY = (posY / halfHeight) - posX / (halfWidth) + cellY;
+  // cellY * 2 = (posY / halfHeight) - posX / (halfWidth);
+  //
+  // Final Formula
+  // -------------
+  // cellX = (posX / (halfWidth) + (posY / halfHeight)) / 2;
+  // cellY = ((posY / halfHeight) - posX / (halfWidth) / 2);
+
+  var cellX = (posX / halfWidth + posY / halfHeight) / 2;
+  var cellY = (posY / halfHeight - posX / halfWidth) / 2;
+  cellX = Math.round(cellX);
+  cellY = Math.round(cellY);
+  return this.get(cellX, cellY);
+};
+
 
 function manhattan(start, end) {
   var dx = Math.abs(end.x - start.x);

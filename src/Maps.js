@@ -68,6 +68,26 @@ Maps.FOREST = {
   ]
 };
 
+Maps.SIMPLE = {
+  walls: [1, 2],
+  objects: [
+    ['house', 0, 300]
+  ],
+  portals: [
+    [0, 12]
+  ],
+  layout: [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
+  ],
+  entities: [
+    [Characters.TEMPLAR, { tile: [6,3], npc: true }],
+    [Characters.TEMPLAR, { tile: [8,1], npc: true }]
+  ]
+};
+
 document.body.addEventListener('touchmove',function(e){
   e.preventDefault();
 });
